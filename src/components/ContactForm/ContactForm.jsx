@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix';
-import { addContact } from 'redux/contacts/contactsSlice';
+import { addContactThunk } from 'redux/thunks/contactsThunk';
 import { Button, Form, Input, Label } from './ContactForm.styled';
 
 export const ContactForm = () => {
@@ -31,10 +30,11 @@ export const ContactForm = () => {
         currentName.toLowerCase() === name.toLowerCase()
     )
       ? Notify.info(`a contact with the name ${name} already exists`)
-      : dispatch(addContact({ name, number }));
+      : dispatch(addContactThunk({ name, number }));
     setName('');
     setNumber('');
   };
+
   return (
     <>
       <Form action="submit" onSubmit={submitData}>
